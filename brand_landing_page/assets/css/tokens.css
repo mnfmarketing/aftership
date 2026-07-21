@@ -1,0 +1,69 @@
+/* AfterShip design tokens — condensed from the source Design System project. */
+
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Azeret+Mono:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/dist/tabler-icons.min.css");
+
+:root {
+  color-scheme: light;
+
+  --10: rgb(246,244,238);
+  --20: rgb(235,232,224);
+  --5: rgb(250,250,249);
+  --70: rgb(87,84,76);
+  --90: rgb(20,20,19);
+  --950: rgb(0,0,0);
+
+  --brand-primary: rgb(255,106,54);
+  --background-brand: var(--brand-primary);
+  --background-primary: rgb(255,255,255);
+  --background-tertiary: var(--20);
+
+  --content-primary: var(--950);
+  --content-secondary: rgba(0,0,0,0.6);
+  --content-tertiary: rgba(0,0,0,0.5);
+  --content-brand: var(--brand-primary);
+  --content-on-brand: #ffffff;
+  --content-error: rgb(199,59,59);
+
+  --line-alpha: rgba(0,0,0,0.08);
+  --line-input: rgb(194,190,179);
+
+  --states-hover: rgba(0,0,0,0.08);
+  --states-press: rgba(0,0,0,0.12);
+
+  --radius-rd-button: 100px;
+  --radius-rd-input: 4px;
+
+  --font-primary: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Azeret Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  color: var(--content-primary);
+  background: var(--background-primary);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--content-primary); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; transition: color 120ms ease; }
+a:hover { color: var(--brand-primary); }
+* { box-sizing: border-box; }
+
+.as-display-60 { font-family: "Poppins", var(--font-primary); font-size: 60px; line-height: 1.06; letter-spacing: -0.03em; font-weight: 600; }
+.as-display-48 { font-family: "Poppins", var(--font-primary); font-size: 48px; line-height: 1.08; letter-spacing: -0.025em; font-weight: 500; }
+.as-heading-40 { font-family: "Poppins", var(--font-primary); font-size: 40px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 600; }
+.as-heading-32 { font-family: var(--font-primary); font-size: 32px; line-height: 1.12; letter-spacing: -0.02em; font-weight: 500; }
+.as-heading-24 { font-family: var(--font-primary); font-size: 24px; line-height: 1.2;  letter-spacing: -0.02em; font-weight: 500; }
+.as-heading-20 { font-family: var(--font-primary); font-size: 20px; line-height: 1.3;  letter-spacing: -0.015em; font-weight: 500; }
+.as-body-16 { font-family: var(--font-primary); font-size: 16px; line-height: 1.5;  letter-spacing: -0.01em; font-weight: 400; }
+.as-body-14 { font-family: var(--font-primary); font-size: 14px; line-height: 1.45; letter-spacing: -0.01em; font-weight: 400; }
+.as-label-14 { font-family: var(--font-primary); font-size: 14px; line-height: 1.12; letter-spacing: -0.02em; font-weight: 500; }
+.as-mono-12 { font-family: var(--font-mono); font-size: 12px; line-height: 1;   letter-spacing: 0.01em; font-weight: 300; text-transform: uppercase; }
+
+.as-interactive { cursor: pointer; transition: box-shadow 100ms ease, background-color 100ms ease, border-color 100ms ease, transform 60ms ease; }
+.as-interactive:hover  { box-shadow: inset 0 0 0 999px var(--states-hover); }
+.as-interactive:active { box-shadow: inset 0 0 0 999px var(--states-press); }
+.as-focusable:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
