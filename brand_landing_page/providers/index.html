@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Providers | Injury Bridge</title>
+<meta name="description" content="How Injury Bridge coordinates lien-based medical care for your clients — nationwide, at zero cost to your firm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf8f4;
+    --paper-raised:#ffffff;
+    --tint:#f8ecf5;
+    --tint-cyan:#eaf6fb;
+    --ink:#1b2340;
+    --ink-soft:#565f78;
+    --ink-faint:#8891a6;
+    --line:#e8e2d8;
+    --magenta:#b32e96;
+    --magenta-deep:#8f2278;
+    --cyan:#279fce;
+    --teal:#123b3f;
+    --teal-soft:#1c5459;
+    --navy-950:#141b34;
+    --navy-800:#1c2748;
+    --gold:#e0a730;
+    --radius-lg:28px;
+    --radius-md:18px;
+    --radius-sm:12px;
+    --shadow-soft:0 20px 60px -30px rgba(20,27,52,.35);
+    --shadow-card:0 12px 30px -18px rgba(20,27,52,.25);
+    --max:1240px;
+    font-size:16px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Plus Jakarta Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font:inherit;color:inherit;}
+  h1,h2,h3,h4{margin:0;font-family:"Fraunces",Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.01em;text-wrap:balance;}
+  p{margin:0;}
+  :focus-visible{outline:2.5px solid var(--cyan);outline-offset:3px;border-radius:4px;}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding-inline:28px;}
+  @media (max-width:640px){ .wrap{padding-inline:20px;} }
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--magenta);
+  }
+  .eyebrow::before{content:"";width:16px;height:2px;background:var(--magenta);border-radius:2px;}
+  .eyebrow.on-dark{color:#ffb7e6;}
+  .eyebrow.on-dark::before{background:#ffb7e6;}
+  .eyebrow.cyan{color:var(--cyan);}
+  .eyebrow.cyan::before{background:var(--cyan);}
+  .eyebrow.on-contact{color:#fff;}
+  .eyebrow.on-contact::before{background:#fff;}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:14px 26px;border-radius:999px;font-weight:700;font-size:.95rem;
+    border:1.5px solid transparent;cursor:pointer;white-space:nowrap;
+    transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease;
+  }
+  .btn svg{width:16px;height:16px;flex:none;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--magenta);color:#fff;box-shadow:0 14px 30px -12px rgba(179,46,150,.55);}
+  .btn-primary:hover{background:var(--magenta-deep);}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-ghost-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.4);}
+  .btn-ghost-light:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+  .btn-cyan{background:var(--cyan);color:#fff;box-shadow:0 14px 30px -14px rgba(39,159,206,.6);}
+  .btn-cyan:hover{background:#1f8bb5;}
+  .btn-sm{padding:10px 18px;font-size:.85rem;}
+  .link-arrow{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:.85rem;color:var(--magenta);}
+  .link-arrow svg{width:14px;height:14px;transition:transform .18s ease;}
+  .link-arrow:hover svg{transform:translateX(3px);}
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(250,248,244,.88);
+    backdrop-filter:blur(10px) saturate(1.2);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:16px;}
+  .wordmark{display:inline-flex;align-items:center;font-family:"Fraunces",serif;font-weight:600;font-size:1.32rem;color:var(--ink);letter-spacing:-.01em;}
+  .b-mark{display:inline-grid;place-items:center;width:1.05em;height:1.05em;margin-inline:.02em;position:relative;top:.02em;}
+  .b-mark svg{width:100%;height:100%;}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{font-size:.88rem;font-weight:600;color:var(--ink-soft);padding-block:6px;position:relative;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a.active{color:var(--magenta);}
+  .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--magenta);border-radius:2px;}
+  .nav-cta{display:flex;align-items:center;gap:12px;}
+  .nav-burger{display:none;background:none;border:none;padding:6px;cursor:pointer;}
+  .nav-burger svg{width:24px;height:24px;}
+  #nav-toggle{display:none;}
+
+  @media (max-width:980px){
+    .nav-links{
+      position:fixed;inset:66px 0 0 0;background:var(--paper);
+      flex-direction:column;align-items:flex-start;gap:2px;padding:18px 24px 28px;
+      border-top:1px solid var(--line);
+      transform:translateY(-8px);opacity:0;pointer-events:none;visibility:hidden;
+      transition:opacity .18s ease, transform .18s ease;
+    }
+    .nav-links a{width:100%;padding:14px 4px;border-bottom:1px solid var(--line);}
+    #nav-toggle:checked ~ .nav-links{opacity:1;transform:translateY(0);pointer-events:auto;visibility:visible;}
+    .nav-burger{display:inline-flex;}
+    .nav-cta .btn-ghost{display:none;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding-block:64px 84px;}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+  .hero h1{font-size:clamp(2.35rem,4.3vw,3.5rem);line-height:1.06;margin-block:18px 20px;}
+  .hero h1 em{font-style:italic;color:var(--magenta);font-weight:500;}
+  .hero p.lead{font-size:1.1rem;color:var(--ink-soft);max-width:46ch;margin-bottom:30px;}
+  .hero .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px;}
+  .stat-inline{display:flex;flex-wrap:wrap;gap:10px 22px;padding-top:22px;border-top:1px solid var(--line);}
+  .stat-inline span{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:700;color:var(--ink);}
+  .stat-inline svg{width:16px;height:16px;color:var(--magenta);flex:none;}
+
+  .hero-media{position:relative;}
+  .media-frame{
+    position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/4.6;
+    background:linear-gradient(155deg,var(--teal) 0%,var(--navy-800) 55%,var(--magenta-deep) 130%);
+    box-shadow:var(--shadow-soft);
+  }
+  .media-frame .fallback-icon{
+    position:absolute;inset:0;display:grid;place-items:center;opacity:.35;
+  }
+  .media-frame .fallback-icon svg{width:34%;height:34%;color:#fff;}
+  .media-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .float-chip{
+    position:absolute;left:-18px;bottom:34px;background:var(--paper-raised);
+    border-radius:20px;padding:18px 22px;box-shadow:var(--shadow-card);
+    display:flex;align-items:center;gap:14px;max-width:250px;
+  }
+  .float-chip .icon-badge{width:44px;height:44px;border-radius:12px;background:var(--tint);display:grid;place-items:center;flex:none;}
+  .float-chip .icon-badge svg{width:22px;height:22px;color:var(--magenta);}
+  .float-chip strong{display:block;font-family:"Fraunces",serif;font-size:1.35rem;line-height:1;color:var(--ink);}
+  .float-chip small{display:block;margin-top:4px;font-size:.75rem;color:var(--ink-soft);font-weight:600;}
+  @media (max-width:980px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero-media{order:-1;max-width:420px;margin-inline:auto;width:100%;}
+    .float-chip{left:16px;bottom:-22px;}
+  }
+
+  /* ---------- generic section ---------- */
+  section{padding-block:88px;}
+  @media (max-width:640px){ section{padding-block:56px;} }
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-top:14px;}
+  .section-head p{margin-top:14px;color:var(--ink-soft);font-size:1.02rem;max-width:56ch;}
+  .section-head.center{margin-inline:auto;text-align:center;}
+
+  /* who we serve */
+  .serve{background:var(--paper-raised);border-block:1px solid var(--line);}
+  .serve .wrap{display:grid;grid-template-columns:1fr .85fr;gap:64px;align-items:center;}
+  .serve-copy h2{font-size:clamp(1.9rem,3.4vw,2.6rem);}
+  .serve-copy h2 em{font-style:italic;color:var(--magenta);font-weight:500;}
+  .serve-item{padding-block:26px;border-top:1px solid var(--line);}
+  .serve-item:first-of-type{margin-top:26px;}
+  .serve-item h3{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.08rem;font-weight:800;}
+  .serve-item h3 span{color:var(--magenta);}
+  .serve-item p{margin-top:8px;color:var(--ink-soft);font-size:.97rem;max-width:52ch;}
+  .serve-media{position:relative;}
+  .serve-media .media-frame{aspect-ratio:1/1.05;background:linear-gradient(155deg,var(--magenta-deep),var(--navy-800) 70%);}
+  @media (max-width:900px){ .serve .wrap{grid-template-columns:1fr;} .serve-media{order:-1;max-width:420px;margin-inline:auto;width:100%;} }
+
+  /* how it works */
+  .process{background:var(--tint);}
+  .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;margin-top:20px;}
+  .process-grid::before{
+    content:"";position:absolute;top:26px;left:6%;right:6%;height:2px;
+    background:repeating-linear-gradient(90deg,var(--magenta) 0 10px,transparent 10px 20px);
+    opacity:.5;
+  }
+  .process-step{position:relative;padding-right:28px;}
+  .step-num{
+    display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;
+    background:var(--paper-raised);border:1.5px solid var(--magenta);color:var(--magenta);
+    font-family:"Fraunces",serif;font-weight:600;font-size:1.15rem;position:relative;z-index:1;
+    box-shadow:0 8px 18px -10px rgba(179,46,150,.4);
+  }
+  .process-step h3{margin-top:20px;font-size:1.08rem;font-weight:800;font-family:"Plus Jakarta Sans",sans-serif;}
+  .process-step p{margin-top:8px;color:var(--ink-soft);font-size:.93rem;}
+  @media (max-width:900px){
+    .process-grid{grid-template-columns:1fr 1fr;gap:36px 24px;}
+    .process-grid::before{display:none;}
+  }
+  @media (max-width:560px){ .process-grid{grid-template-columns:1fr;} }
+
+  /* value cards */
+  .value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:20px;}
+  .value-card{
+    background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:30px 26px;box-shadow:var(--shadow-card);
+    display:flex;flex-direction:column;gap:14px;
+  }
+  .value-card .icon-badge{width:50px;height:50px;border-radius:14px;background:var(--tint);display:grid;place-items:center;}
+  .value-card .icon-badge svg{width:24px;height:24px;color:var(--magenta);}
+  .value-card h3{font-family:"Plus Jakarta Sans",sans-serif;font-size:1.06rem;font-weight:800;}
+  .value-card p{color:var(--ink-soft);font-size:.93rem;}
+  @media (max-width:900px){ .value-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .value-grid{grid-template-columns:1fr;} }
+
+  /* coverage band */
+  .coverage{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,.14) 1.4px, transparent 1.4px) 0 0/26px 26px,
+      linear-gradient(155deg,var(--navy-950) 0%,var(--teal) 100%);
+    color:#fff;position:relative;overflow:hidden;
+  }
+  .coverage .wrap{position:relative;}
+  .coverage-head{text-align:center;max-width:640px;margin:0 auto 46px;}
+  .coverage-head h2{color:#fff;font-size:clamp(1.7rem,3.2vw,2.4rem);}
+  .coverage-head h2 strong{color:var(--gold);}
+  .coverage-icons{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  .coverage-icon{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;}
+  .coverage-icon .circle{width:66px;height:66px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;}
+  .coverage-icon .circle svg{width:28px;height:28px;color:#fff;}
+  .coverage-icon span{font-size:.78rem;font-weight:700;letter-spacing:.03em;color:rgba(255,255,255,.85);}
+  @media (max-width:820px){ .coverage-icons{grid-template-columns:repeat(3,1fr);row-gap:30px;} }
+  @media (max-width:520px){ .coverage-icons{grid-template-columns:repeat(2,1fr);} }
+
+  .guarantee{
+    margin-top:50px;background:linear-gradient(100deg,var(--magenta) 0%,var(--magenta-deep) 100%);
+    border-radius:var(--radius-md);padding:26px 34px;
+    display:grid;grid-template-columns:auto 1px repeat(3,1fr);gap:26px;align-items:center;
+    box-shadow:0 24px 50px -22px rgba(0,0,0,.5);
+  }
+  .guarantee-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.25rem;color:#fff;line-height:1.15;}
+  .guarantee-div{width:1px;height:44px;background:rgba(255,255,255,.3);}
+  .guarantee-item{display:flex;align-items:center;gap:12px;}
+  .guarantee-item .icon-badge{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.16);display:grid;place-items:center;flex:none;}
+  .guarantee-item .icon-badge svg{width:18px;height:18px;color:#fff;}
+  .guarantee-item span{font-size:.86rem;font-weight:700;color:#fff;line-height:1.25;}
+  @media (max-width:900px){
+    .guarantee{grid-template-columns:1fr;text-align:left;}
+    .guarantee-div{display:none;}
+  }
+
+  /* impact stats */
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:20px;}
+  .stat-card{
+    background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:34px 28px;box-shadow:var(--shadow-card);
+  }
+  .stat-card .num{font-family:"Fraunces",serif;font-size:clamp(2.4rem,4vw,3.2rem);font-weight:600;color:var(--magenta);line-height:1;font-variant-numeric:tabular-nums;}
+  .stat-card .label{margin-top:12px;font-weight:700;font-size:.95rem;color:var(--ink);}
+  .stat-card .sub{margin-top:6px;font-size:.85rem;color:var(--ink-faint);}
+  .impact-note{margin-top:22px;font-size:.82rem;color:var(--ink-faint);}
+  @media (max-width:820px){ .stat-grid{grid-template-columns:1fr;} }
+
+  /* testimonials */
+  .testimonials{background:var(--paper-raised);border-block:1px solid var(--line);}
+  .t-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px;}
+  .t-nav{display:flex;gap:10px;}
+  .t-nav button{
+    width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--paper-raised);
+    display:grid;place-items:center;cursor:pointer;transition:border-color .18s ease, transform .18s ease;
+  }
+  .t-nav button:hover{border-color:var(--magenta);transform:translateY(-1px);}
+  .t-nav svg{width:17px;height:17px;color:var(--ink);}
+  .t-track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none;}
+  .t-track::-webkit-scrollbar{display:none;}
+  .t-card{
+    scroll-snap-align:start;flex:0 0 clamp(260px,32%,360px);
+    background:var(--tint);border-radius:var(--radius-md);padding:28px 26px;
+    display:flex;flex-direction:column;gap:16px;border:1px solid var(--line);
+  }
+  .t-stars{display:flex;gap:3px;}
+  .t-stars svg{width:15px;height:15px;color:var(--gold);}
+  .t-quote{font-size:.98rem;color:var(--ink);line-height:1.55;}
+  .t-person{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:6px;}
+  .t-avatar{width:38px;height:38px;border-radius:50%;background:var(--magenta);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.85rem;flex:none;}
+  .t-person strong{display:block;font-size:.88rem;}
+  .t-person small{display:block;color:var(--ink-faint);font-size:.76rem;}
+
+  /* faq */
+  .faq{background:var(--tint-cyan);}
+  .faq-list{max-width:800px;margin-top:24px;display:flex;flex-direction:column;gap:12px;}
+  .faq-item{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;}
+  .faq-item summary{
+    list-style:none;cursor:pointer;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    font-weight:700;font-size:.98rem;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-toggle{width:26px;height:26px;border-radius:50%;background:var(--tint);display:grid;place-items:center;flex:none;transition:transform .2s ease;}
+  .faq-toggle svg{width:13px;height:13px;color:var(--magenta);}
+  .faq-item[open] .faq-toggle{transform:rotate(45deg);}
+  .faq-body{padding:0 24px 22px;color:var(--ink-soft);font-size:.93rem;max-width:64ch;}
+
+  /* contact */
+  .contact{
+    background:linear-gradient(120deg,var(--cyan) 0%,#6a5fc4 52%,var(--magenta-deep) 100%);
+    color:#fff;
+  }
+  .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  .contact h2{color:#fff;font-size:clamp(1.9rem,3.4vw,2.5rem);}
+  .contact .tagline{margin-top:16px;font-style:italic;font-family:"Fraunces",serif;font-size:1.1rem;color:#fff;}
+  .contact p.body{margin-top:14px;color:rgba(255,255,255,.88);max-width:44ch;}
+  .contact-links{margin-top:26px;display:flex;flex-direction:column;gap:12px;}
+  .contact-links a{display:flex;align-items:center;gap:10px;font-weight:700;}
+  .contact-links svg{width:18px;height:18px;}
+  .contact-form{
+    background:var(--navy-950);border-radius:var(--radius-lg);padding:34px;
+    display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-soft);
+  }
+  .contact-form input,.contact-form select,.contact-form textarea{
+    width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.06);color:#fff;font:inherit;font-size:.92rem;
+  }
+  .contact-form ::placeholder{color:rgba(255,255,255,.5);}
+  .contact-form label{font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:-4px;}
+  .contact-form select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M5 8l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;}
+  .contact-form textarea{resize:vertical;min-height:96px;font-family:inherit;}
+  @media (max-width:900px){ .contact .wrap{grid-template-columns:1fr;} }
+
+  /* footer */
+  footer{background:var(--navy-950);color:rgba(255,255,255,.7);}
+  .footer-top{padding-block:64px;display:grid;grid-template-columns:1.1fr 1fr 1.1fr;gap:40px;}
+  .footer-brand .wordmark{color:#fff;}
+  .footer-brand p{margin-top:16px;font-size:.88rem;line-height:1.7;}
+  .footer-social{display:flex;gap:12px;margin-top:20px;}
+  .footer-social a{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;}
+  .footer-social svg{width:16px;height:16px;color:#fff;}
+  footer h4{font-family:"Plus Jakarta Sans",sans-serif;color:#fff;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px;}
+  footer .flinks{display:flex;flex-direction:column;gap:12px;font-size:.9rem;}
+  footer .flinks a:hover{color:#fff;}
+  .footer-news p{font-size:.88rem;margin-bottom:16px;}
+  .footer-news form{display:flex;flex-direction:column;gap:10px;}
+  .footer-news input{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#fff;font:inherit;font-size:.88rem;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-block:20px;text-align:center;font-size:.78rem;color:rgba(255,255,255,.5);}
+  .footer-bottom a{text-decoration:underline;text-underline-offset:2px;}
+  @media (max-width:820px){ .footer-top{grid-template-columns:1fr;gap:34px;} }
+</style>
+</head>
+<body>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5c0 8.5 6.5 15 15 15l2-4-6-2-2 2c-2.5-1-4.5-3-5.5-5.5l2-2-2-6-4 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-headset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0116 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.4"/><rect x="17" y="13" width="4" height="6" rx="1.4"/><path d="M19 19v1a2 2 0 01-2 2h-3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 6 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-6-3.8-9S9.5 5.7 12 3z"/></symbol>
+  <symbol id="i-child" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><path d="M6 21v-5a3 3 0 013-3h6a3 3 0 013 3v5"/><path d="M9 13v8M15 13v8"/></symbol>
+  <symbol id="i-pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-35 12 12)"/><path d="M9.5 9.5l5 5" transform="rotate(-35 12 12)"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-dollar-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 15c.5 1 1.5 1.5 2.7 1.5 1.7 0 2.8-.9 2.8-2.1 0-3-6-1.4-6-4.4 0-1.2 1.1-2.1 2.8-2.1 1.2 0 2.2.5 2.7 1.5M12 6.5v11"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 105 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h6M10 16h6M10 8h2"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2"/><path d="M6 16c.5-1.5 1.7-2.3 3-2.3s2.5.8 3 2.3M14 10h4M14 14h4"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.7-4.9 4.6 1.3 6.6L12 17l-5.9 3.4 1.3-6.6-4.9-4.6 6.6-.7z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2 3.77-2 4 0 4.7 2.6 4.7 6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H9z"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24" fill="currentColor"><path d="M14 21v-7h2.4l.4-3H14V9c0-.9.2-1.5 1.6-1.5H17V5c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.8v7z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5S3.5 15 3.5 8.9A4.4 4.4 0 0112 6.2a4.4 4.4 0 018.5 2.7c0 6.1-8.5 11.6-8.5 11.6z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><circle cx="17" cy="8" r="2.4"/><path d="M15.5 15.2c2.6.3 4.5 2 4.5 4.8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+</defs>
+</svg>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="#top" class="wordmark">injury<span class="b-mark"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="none" stroke="#b32e96" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="none" stroke="#279fce" stroke-width="3"/></svg></span>ridge</a>
+
+    <input type="checkbox" id="nav-toggle">
+    <ul class="nav-links">
+      <li><a href="#top">About</a></li>
+      <li><a href="#top">Attorneys</a></li>
+      <li><a href="#top" class="active">Providers</a></li>
+      <li><a href="#top">Patients</a></li>
+      <li><a href="#contact">Schedule a Demo</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost btn-sm">Schedule a Demo</a>
+      <a href="#top" class="btn btn-primary btn-sm">Portal <svg><use href="#i-arrow"/></svg></a>
+      <label for="nav-toggle" class="nav-burger" role="button" tabindex="0" aria-label="Toggle menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></label>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">For personal injury law firms</span>
+        <h1>Care for your clients. <em>Zero&nbsp;cost</em> to your firm.</h1>
+        <p class="lead">Injury Bridge connects the clients you represent to licensed medical providers nationwide — fast evaluations, consistent documentation, and treatment on a lien basis from day one.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn btn-primary">Schedule a Demo <svg><use href="#i-arrow"/></svg></a>
+          <a href="tel:8557857585" class="btn btn-ghost"><svg><use href="#i-phone"/></svg> (855) 785-7585</a>
+        </div>
+        <div class="stat-inline">
+          <span><svg><use href="#i-map"/></svg>Licensed in 50 states</span>
+          <span><svg><use href="#i-dollar-off"/></svg>$0 upfront cost</span>
+          <span><svg><use href="#i-pill"/></svg>48-hr Rx delivery</span>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="media-frame">
+          <div class="fallback-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M9 13h6M9 17h4"/></svg></div>
+          <img src="https://images.unsplash.com/photo-1550831107-1553da8c8464?auto=format&fit=crop&w=1000&q=80" alt="A physician reviewing imaging results with a patient" loading="eager" onerror="this.style.display='none'">
+        </div>
+        <div class="float-chip">
+          <div class="icon-badge"><svg><use href="#i-map"/></svg></div>
+          <div><strong>50 States</strong><small>Licensed &amp; ready to coordinate care</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE SERVE -->
+  <section class="serve">
+    <div class="wrap">
+      <div class="serve-copy">
+        <span class="eyebrow">Who we serve</span>
+        <h2>Two clients. <em>One standard of care.</em></h2>
+
+        <div class="serve-item">
+          <h3>Personal Injury <span>Patients</span></h3>
+          <p>We help patients who suffered accidents, falls, or trauma get immediate access to licensed medical providers. Whether they need an evaluation, prescription support, mental health care, or referrals, we make quality care available without delays.</p>
+        </div>
+        <div class="serve-item">
+          <h3>Personal Injury <span>Law Firms</span></h3>
+          <p>We support attorneys by providing consistent documentation, early evaluations, and streamlined treatment paths that strengthen case outcomes and reduce administrative workload — all on a lien basis, with nothing due upfront.</p>
+        </div>
+      </div>
+
+      <div class="serve-media">
+        <div class="media-frame">
+          <div class="fallback-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/><circle cx="17" cy="8" r="2.4"/><path d="M15.5 15.2c2.6.3 4.5 2 4.5 4.8"/></svg></div>
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80" alt="A provider examining a patient's arm during a treatment visit" loading="lazy" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="process">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>From referral to resolution, we handle the medical side</h2>
+        <p>One call starts the process. From there, our team manages scheduling, treatment, and records — so your firm stays focused on the case.</p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="step-num">01</div>
+          <h3>Refer your client</h3>
+          <p>Submit a referral through our portal or call our live intake line — available around the clock, every day of the year.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">02</div>
+          <h3>We coordinate care</h3>
+          <p>A licensed provider in our network evaluates your client, typically within 48 hours of referral.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">03</div>
+          <h3>Treatment on a lien</h3>
+          <p>Your client gets the full course of care they need. No bills, no upfront cost — to them or to your firm.</p>
+        </div>
+        <div class="process-step">
+          <div class="step-num">04</div>
+          <h3>Documentation, delivered</h3>
+          <p>We send organized medical records and itemized billing, ready to drop into your demand package.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY LAW FIRMS PARTNER -->
+  <section class="why">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Why firms partner with us</span>
+        <h2>Built to make your job easier, case after case</h2>
+        <p>Every part of the process is designed around what your firm actually needs — speed, documentation, and a client who feels taken care of.</p>
+      </div>
+
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="icon-badge"><svg><use href="#i-dollar-off"/></svg></div>
+          <h3>Zero upfront cost</h3>
+          <p>Care is provided on a lien basis. Nothing is due at the time of service — not from your client, not from your firm.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon-badge"><svg><use href="#i-map"/></svg></div>
+          <h3>Nationwide network</h3>
+          <p>Licensed to coordinate care in all 50 states, so your client is covered no matter where the incident happened.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon-badge"><svg><use href="#i-clock"/></svg></div>
+          <h3>Fast scheduling</h3>
+          <p>Most evaluations happen within 48 hours of referral, keeping treatment gaps out of the medical record.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon-badge"><svg><use href="#i-doc"/></svg></div>
+          <h3>Organized documentation</h3>
+          <p>Clean, itemized records and billing delivered in a format that's ready for your demand package.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon-badge"><svg><use href="#i-headset"/></svg></div>
+          <h3>Live intake support</h3>
+          <p>A live team, not a call queue. Every referral gets a warm hand-off, any time you call.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon-badge"><svg><use href="#i-id"/></svg></div>
+          <h3>Dedicated case support</h3>
+          <p>One point of contact tracks your client's care from the first visit through the final record.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COVERAGE BAND -->
+  <section class="coverage">
+    <div class="wrap">
+      <div class="coverage-head">
+        <span class="eyebrow on-dark">Nationwide coverage</span>
+        <h2 style="margin-top:14px;">We're licensed in <strong>50 states</strong></h2>
+      </div>
+
+      <div class="coverage-icons">
+        <div class="coverage-icon"><div class="circle"><svg><use href="#i-headset"/></svg></div><span>LIVE TRANSFERS</span></div>
+        <div class="coverage-icon"><div class="circle"><svg><use href="#i-globe"/></svg></div><span>MULTILINGUAL</span></div>
+        <div class="coverage-icon"><div class="circle"><svg><use href="#i-child"/></svg></div><span>ABILITY TO TREAT MINORS 13+</span></div>
+        <div class="coverage-icon"><div class="circle"><svg><use href="#i-pill"/></svg></div><span>48-HR RX DELIVERY TIME</span></div>
+        <div class="coverage-icon"><div class="circle"><svg><use href="#i-clipboard"/></svg></div><span>MEDICAL REFERRALS</span></div>
+      </div>
+
+      <div class="guarantee">
+        <div class="guarantee-title">Risk-Free<br>Guarantee</div>
+        <div class="guarantee-div"></div>
+        <div class="guarantee-item"><div class="icon-badge"><svg><use href="#i-dollar-off"/></svg></div><span>No cost to your firm</span></div>
+        <div class="guarantee-item"><div class="icon-badge"><svg><use href="#i-shield"/></svg></div><span>Best treatment available on a lien basis</span></div>
+        <div class="guarantee-item"><div class="icon-badge"><svg><use href="#i-doc"/></svg></div><span>In-line with Medicare rates</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT STATS -->
+  <section class="impact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The Injury Bridge difference</span>
+        <h2>What scale looks like for your clients</h2>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="num">XX+</div>
+          <div class="label">Referring law firms nationwide</div>
+          <div class="sub">Firms that send us clients case after case</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">XX+</div>
+          <div class="label">Provider locations in network</div>
+          <div class="sub">Across primary care, imaging, and specialty treatment</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">48-Hr</div>
+          <div class="label">Average time to first appointment</div>
+          <div class="sub">From referral to a scheduled evaluation</div>
+        </div>
+      </div>
+      <p class="impact-note">*Ask your Injury Bridge representative for current network figures.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="wrap">
+      <div class="t-head">
+        <div class="section-head" style="margin-bottom:0;">
+          <span class="eyebrow">Testimonials</span>
+          <h2>Real stories. Real reviews.</h2>
+        </div>
+        <div class="t-nav">
+          <button type="button" id="t-prev" aria-label="Previous testimonials"><svg><use href="#i-arrow"/></svg></button>
+          <button type="button" id="t-next" aria-label="Next testimonials" style="transform:scaleX(-1)"><svg><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+
+      <div class="t-track" id="t-track">
+        <div class="t-card">
+          <div class="t-stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <p class="t-quote">"Timely care when I needed it the most."</p>
+          <div class="t-person"><div class="t-avatar">RH</div><div><strong>Raw H.</strong><small>Client</small></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <p class="t-quote">"As a working parent, Injury Bridge made it very easy for me to speak to a doctor &amp; receive my medication the next day!"</p>
+          <div class="t-person"><div class="t-avatar">MS</div><div><strong>Maisha S.</strong><small>Client</small></div></div>
+        </div>
+        <div class="t-card">
+          <div class="t-stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+          <p class="t-quote">"Really good place where you can receive help with a doctor appointment after being injured. They work fast and efficient!"</p>
+          <div class="t-person"><div class="t-avatar">AP</div><div><strong>Alejandro P.</strong><small>Client</small></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow cyan">Questions firms ask</span>
+        <h2>How we work, in plain terms</h2>
+        <p>The short version of everything on this page — for the associate who just wants the facts.</p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Does working with Injury Bridge cost my firm anything?<span class="faq-toggle"><svg><use href="#i-plus"/></svg></span></summary>
+          <div class="faq-body">No. Treatment is provided on a lien basis — your client is treated first, and we're paid from the settlement. There's no upfront cost to your firm or your client.</div>
+        </details>
+        <details class="faq-item">
+          <summary>What happens if the case doesn't settle?<span class="faq-toggle"><svg><use href="#i-plus"/></svg></span></summary>
+          <div class="faq-body">Every case carries risk, and lien terms address exactly this. Talk to your Injury Bridge representative about how a specific case is handled.</div>
+        </details>
+        <details class="faq-item">
+          <summary>How quickly can a client be seen?<span class="faq-toggle"><svg><use href="#i-plus"/></svg></span></summary>
+          <div class="faq-body">Most clients are evaluated within 48 hours of referral, with same-day availability in many areas.</div>
+        </details>
+        <details class="faq-item">
+          <summary>What states do you cover?<span class="faq-toggle"><svg><use href="#i-plus"/></svg></span></summary>
+          <div class="faq-body">We're licensed to coordinate care in all 50 states, so your client is covered regardless of where the incident occurred.</div>
+        </details>
+        <details class="faq-item">
+          <summary>What types of care are available?<span class="faq-toggle"><svg><use href="#i-plus"/></svg></span></summary>
+          <div class="faq-body">From initial evaluation to imaging, specialist referrals, prescriptions, and mental health support — we coordinate the full continuum of care your client needs.</div>
+        </details>
+        <details class="faq-item">
+          <summary>How do I send a referral?<span class="faq-toggle"><svg><use href="#i-plus"/></svg></span></summary>
+          <div class="faq-body">Call our live intake line at (855) 785-7585 or submit a referral through the provider portal — our team responds immediately.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow on-contact">Got questions?</span>
+        <h2 style="margin-top:14px;">We're here for you</h2>
+        <p class="tagline">Injury Bridge offers support every day.</p>
+        <p class="body">Have questions for our specialists? Don't wait to experience all the benefits Injury Bridge has to offer! Fill out the form and our experts will respond within 24 hours.</p>
+        <div class="contact-links">
+          <a href="tel:8557857585"><svg><use href="#i-phone"/></svg> Call us: (855) 785-7585</a>
+          <a href="mailto:sales@injurybridge.com"><svg><use href="#i-mail"/></svg> Email: sales@injurybridge.com</a>
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="return false;">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" type="text" placeholder="Full name" required>
+        <label for="cf-email">Email</label>
+        <input id="cf-email" type="email" placeholder="you@lawfirm.com" required>
+        <label for="cf-phone">Phone</label>
+        <input id="cf-phone" type="tel" placeholder="(555) 555-5555">
+        <label for="cf-role">Select one</label>
+        <select id="cf-role">
+          <option>Law Firm</option>
+          <option>Patient</option>
+          <option>Provider</option>
+          <option>Other</option>
+        </select>
+        <label for="cf-msg">Message</label>
+        <textarea id="cf-msg" placeholder="Leave your comment or message here."></textarea>
+        <button type="submit" class="btn btn-cyan" style="margin-top:6px;">Send <svg><use href="#i-arrow"/></svg></button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-top">
+    <div class="footer-brand">
+      <a href="#top" class="wordmark">injury<span class="b-mark"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="none" stroke="#ff8fdc" stroke-width="3"/><circle cx="20" cy="20" r="10" fill="none" stroke="#5cc9ef" stroke-width="3"/></svg></span>ridge</a>
+      <p>Email: info@injurybridge.com<br>Phone: (855) 785-7585</p>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg><use href="#i-facebook"/></svg></a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <div class="flinks">
+        <a href="#top">About</a>
+        <a href="#top">Attorneys</a>
+        <a href="#top" style="color:#ff8fdc;">Providers</a>
+        <a href="#top">Patients</a>
+        <a href="#contact">Schedule a Demo</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-news">
+      <h4>Subscribe to Our Newsletter</h4>
+      <p>Case updates and network news, occasionally — never spam.</p>
+      <form onsubmit="return false;" style="display:flex;flex-direction:column;gap:10px;">
+        <input type="text" placeholder="Name">
+        <input type="email" placeholder="Email">
+        <button type="submit" class="btn btn-cyan btn-sm">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2025&ndash;2026 All Rights Reserved. <a href="#top">Privacy Policy</a> | <a href="#top">Terms &amp; Conditions</a>
+  </div>
+</footer>
+
+<script>
+  // testimonial carousel
+  (function(){
+    var track = document.getElementById('t-track');
+    var prev = document.getElementById('t-prev');
+    var next = document.getElementById('t-next');
+    if(!track) return;
+    function step(dir){
+      var card = track.querySelector('.t-card');
+      var amount = card ? card.getBoundingClientRect().width + 22 : 320;
+      track.scrollBy({left: dir * amount, behavior: 'smooth'});
+    }
+    prev.addEventListener('click', function(){ step(-1); });
+    next.addEventListener('click', function(){ step(1); });
+  })();
+
+  // close mobile nav on link click
+  (function(){
+    var toggle = document.getElementById('nav-toggle');
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+      a.addEventListener('click', function(){ if(toggle) toggle.checked = false; });
+    });
+  })();
+
+  // keyboard support for the checkbox-driven mobile nav toggle
+  (function(){
+    var burger = document.querySelector('.nav-burger');
+    var toggle = document.getElementById('nav-toggle');
+    if(!burger || !toggle) return;
+    burger.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggle.checked = !toggle.checked;
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
